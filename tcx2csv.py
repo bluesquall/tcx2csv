@@ -3,7 +3,6 @@
 import os
 from lxml import objectify
 import csv
-# import dateutil
 
 
 def convert(tcxfile, csvfile=None):
@@ -17,7 +16,6 @@ def convert(tcxfile, csvfile=None):
     sport = activity.attrib['Sport']
 
     with open(csvfile, 'wt') as outfile:
-        outfile.write('# {}\n'.format(sport))
         out = csv.writer(outfile)
         out.writerow(['time','longitude','latitude','altitude','lap',
                         'distance','speed','cadence','power','heartrate'])
@@ -57,7 +55,7 @@ def convert(tcxfile, csvfile=None):
                     except AttributeError:
                         cadence = ''
 
-                power = point.find('.//{*}Watts')
+                power = point.Extensions.find('.//{*}Watts')
 
                 try:
                     heartrate = point.HeartRateBpm.Value
@@ -66,7 +64,7 @@ def convert(tcxfile, csvfile=None):
 
                 out.writerow([time, longitude, latitude, altitude, lap_number,
                         distance, speed, cadence, power, heartrate])
-
+        outfile.write('# end of {}\n'.format(sport))
 
 def main(tcxfile, csvfile = None):
     convert(tcxfile, csvfile)

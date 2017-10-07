@@ -22,7 +22,7 @@ Output format
 -------------
 
 ```csv
-timestamp,longitude,latitude,altitude,lap,distance,speed,cadence,heartrate,power |
+timestamp,longitude,latitude,altitude,lap,distance,speed,cadence,heartrate,power
 
 ```
 
@@ -43,8 +43,7 @@ whatever tool you prefer, e.g.:
 ```python
 import dateutil
 import numpy as np
-data = np.recfromcsv('output.csv', skip_header=1,
-    converters={0:dateutil.parser.parse})
+data = np.recfromcsv('output.csv', converters={0:dateutil.parser.parse})
 plot_date(data['time'], data['heartrate'])
 ```
 
