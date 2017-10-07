@@ -14,7 +14,6 @@ def convert(tcxfile, csvfile=None):
         raise NotImplementedError
 
     activity = objectify.parse(tcxfile).getroot().Activities.Activity
-    #tcxns = dict(TCX=activity.nsmap[None])
     sport = activity.attrib['Sport']
 
     with open(csvfile, 'wt') as outfile:
@@ -23,10 +22,8 @@ def convert(tcxfile, csvfile=None):
         out.writerow(['time','longitude','latitude','altitude','lap',
                         'distance','speed','cadence','power','heartrate'])
         lap_number = 0
-        # for lap in activity.xpath('TCX:Lap', namespaces=tcxns):
         for lap in activity.iter('{*}Lap'):
             lap_number +=1
-            # for point in lap.xpath('TCX:Trackpoint', namespaces=tcxns):
             for point in lap.Track.iter('{*}Trackpoint'):
                 time = point.Time
 
