@@ -41,8 +41,11 @@ Once you have the output `csv` you should be able to import it easily into
 whatever tool you prefer, e.g.:
 
 ```python
+import dateutil
 import numpy as np
-data = np.loadtxt('output.csv', delimiter=',', skiprows=1)
+data = np.recfromcsv('output.csv', skip_header=1,
+    converters={0:dateutil.parser.parse})
+plot_date(data['time'], data['heartrate'])
 ```
 
 
