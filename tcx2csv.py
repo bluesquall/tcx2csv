@@ -68,7 +68,8 @@ def convert(tcxfile, csvfile=None):
 
 def main(tcxfile, csvfile = None):
     convert(tcxfile, csvfile)
-
+    #TODO# set creation time to match original file, modification time to current
+    #TODO# option for gzipped output stackoverflow.com/questions/27205893/
 
 if __name__ == "__main__":
     import argparse
